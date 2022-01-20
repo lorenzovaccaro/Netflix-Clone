@@ -11,6 +11,8 @@ struct HomeView: View {
     
     var vm = HomeVM()
     
+    let screen = UIScreen.main.bounds
+    
     var body: some View {
         ZStack{
             Color.black
@@ -23,6 +25,10 @@ struct HomeView: View {
             // the request right before the user needs it
             ScrollView(showsIndicators: false) {
                 LazyVStack {
+                    
+                    TopMoviePreview(movie: exampleMovieOne)
+                        .frame(width: screen.width)
+                        .padding(.top, -60)
                     
                     ForEach(vm.allCategories, id: \.self) { category in
                         VStack {
