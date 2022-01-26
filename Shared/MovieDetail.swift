@@ -37,7 +37,13 @@ struct MovieDetail: View {
                         StandardHomeMovie(movie: movie)
                             .frame(width: screen.width / 2.5)
                         
-                        MovieInfoSubheadline()
+                        MovieInfoSubheadline(movie: movie)
+                        
+                        if movie.promotionHeadline != nil{
+                            Text(movie.promotionHeadline!)
+                                .bold()
+                                .font(.headline)
+                        }
                     }
                 }
                 
@@ -49,24 +55,53 @@ struct MovieDetail: View {
     }
 }
 
-struct MovieDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        MovieDetail(movie: exampleMovie3)
-    }
-}
-
 struct MovieInfoSubheadline: View {
+    var movie: Movie
+    
     var body: some View {
-        HStack{
+        HStack(spacing: 20){
             Image(systemName: "hand.thumbsup.fill")
                 .foregroundColor(.white
                 )
-            Text("Movie Year")
-            Text("Rating")
-            Text("# of Season")
+            
+            
+            Text(String(movie.year))
+            
+            RatingView(rating: movie.rating)
+            
+            Text(String(movie.numberOfSeasonsDisplay))
             
         }
         .foregroundColor(.gray)
         .padding(.vertical, 6)
     }
 }
+
+struct RatingView: View {
+    
+    var rating: String
+    
+    var body: some View {
+        ZStack{
+            Rectangle()
+                .foregroundColor(.gray)
+            
+            Text(rating)
+                .foregroundColor(.white)
+                .font(.system(size: 12))
+                .bold()
+        }
+        .frame(width: 50, height: 20)
+        
+    }
+}
+
+
+
+struct MovieDetail_Previews: PreviewProvider {
+    static var previews: some View {
+        MovieDetail(movie: exampleMovie6)
+    }
+}
+
+
