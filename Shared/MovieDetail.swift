@@ -44,11 +44,24 @@ struct MovieDetail: View {
                                 .bold()
                                 .font(.headline)
                         }
+                        
+                        PlayButton(imageName: "play.fill", text: "Play", backgroundColor: .red) {
+                            // action code
+                            
+                        }
+                        
+                        // Current Episode Info
+                        // 1. Default
+                        // 2. Currently where the user is (personalized)
+                        CurrentEpisodeInformation(movie: movie)
+                        
+                        CastInfo(movie: movie)
                     }
+                    .padding(.horizontal, 10)
                 }
                 
                 Spacer()
-            
+                
             }
         }
         .foregroundColor(.white)
@@ -96,6 +109,52 @@ struct RatingView: View {
     }
 }
 
+
+struct CastInfo: View {
+    var movie: Movie
+    
+    var body: some View {
+        VStack(spacing: 3){
+            HStack{
+                Text("Cast: \(movie.cast)")
+                Spacer()
+            }
+            
+            HStack{
+                Text("Creators: \(movie.creators)")
+                Spacer()
+            }
+            
+        }
+        .font(.caption)
+        .foregroundColor(.gray)
+        .padding(.vertical, 10)
+    }
+}
+
+struct CurrentEpisodeInformation: View {
+    var movie: Movie
+    
+    var body: some View {
+        Group{
+            HStack {
+                Text(movie.episodeInfoDisplay)
+                    .bold()
+                
+                Spacer()
+            }
+            .padding(.vertical, 4)
+            
+            
+            HStack {
+                Text(movie.episodeDescriptionDisplay)
+                    .font(.subheadline)
+                
+                Spacer()
+            }
+        }
+    }
+}
 
 
 struct MovieDetail_Previews: PreviewProvider {
